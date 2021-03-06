@@ -22,8 +22,8 @@
 }
 
 #navbar {
-    background-color: var(--swatch-complement);
-    box-shadow: 2px 2px 2px var(--swatch-primary); 
+    background-color: var(--swatch-primary);
+    box-shadow: 2px 3px 2px var(--swatch-primary);
     color: rgb(255,200,25);
     font-weight: bold;
     font-size: 18pt;
@@ -31,23 +31,22 @@
 
 #left-sidebar {
     background-color: var(--swatch-complement);
+    box-shadow: 2px 3px 2px var(--swatch-primary);
     color: rgb(233,237,240);
 }
 
 #left-sidebar-header {
-    border-bottom: dotted;
     font-size: 14pt;
     font-weight: bold;
 }
 
 #todo-list-header-card {
-    border-bottom: dotted;
-    font-size: 14pt;
-    font-weight: bold;
+    
 }
 
 #workspace {
     background-color: var(--swatch-primary);
+    box-shadow: 2px 3px 2px var(--swatch-primary);
     color: rgb(233,237,240);
 }
 
@@ -69,6 +68,10 @@
     cursor: pointer;
 }
 
+.list-item-control:hover {
+    background-color: #c3c4c7;
+}
+
 .list-item-card {
     border-bottom: solid;
     border-width: 1px;
@@ -82,17 +85,35 @@
 }
 
 .todo-list-button:hover {
-    background-color: var(--swatch-contrast);
+    background-color: #c3c4c7;
 }
 
 .todo-button {
     cursor:pointer;
-    background-color: var(--swatch-complement);
+    background-color: var(--swatch-primary);
     font-weight: bold;
 }
 
-.todo-button:hover {
-    background-color: var(--swatch-contrast);
+#task-col-header:hover {
+    background-color: #4d5059;
+}
+#date-col-header:hover {
+    background-color: #4d5059;
+}
+#status-col-header:hover {
+    background-color: #4d5059;
+}
+
+#add-item-button:hover {
+    background-color: #c3c4c7;
+}
+
+#delete-list-button:hover {
+    background-color: #c3c4c7;
+}
+
+#close-list-button:hover {
+    background-color: #c3c4c7;
 }
 
 #add-list-button {

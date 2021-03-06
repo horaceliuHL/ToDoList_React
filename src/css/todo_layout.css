@@ -1,43 +1,44 @@
+*{
+    overflow-x: hidden;
+}
+
 #root {
-    position:absolute;
-    width:98%;
-    left:1%;
-    height:100%;
+    overflow-y: hidden;
+    position: fixed;
+    width:99%;
+    height:98%;
 }
 
 #navbar {
     position:absolute;
-    height: 50px;
     top:0%;
     left:0%;
     width: 100%;
-    height: 5%;
+    height: 4.5%;
     margin:auto;
     padding-left: 10px;
 }
 
 #title-div {
     position: absolute;
-    top:7px;
+    padding-top: 0.2%;
+    padding-bottom: 0.2%;
 }
 
 #left-sidebar {
     position:absolute;
     height:94%;
     width:13%;
-    top:5.5%;
-    left:0%;
-    padding-left: 15px;
+    top:5.8%;
+    overflow-y: hidden;
 }
 
 #workspace {
     position:absolute;
     height:94%;
-    width:85.5%;
-    top:5.5%;
+    width:87%;
+    top:5.8%;
     left:13%;
-    padding-left: 15px;
-    padding-right: 25px;
     grid-column: 2 span 1;
     grid-row: 2 span 1;
     display: flex;
@@ -45,27 +46,34 @@
 }
 
 #left-sidebar-header {
-    padding-top:25px;
+    padding-top:10%;
     height:4%;
     top:3%;
-    width: 80%;
+    width: 90%;
     display: grid;
     grid-template-columns: 60% 40%;
-    white-space: nowrap;
+    margin-left: 5%;
+    border-bottom: dotted;
+    
 }
 
 #todo-lists-list {
     position:absolute;
     text-align: center;
-    height:80%;
+    height:92%;
     width:100%;
     top: 8%;
+    overflow-y: auto;
 }
 
 .todo-list-button {
-    padding-top:20px;
     height: 60px;
-    width: 80%;
+    width: 100%;
+}
+
+.alignText {
+    align-items: center;
+    margin-top: 9%;
 }
 
 .todo-button {
@@ -77,9 +85,13 @@
 }
 
 #todo-list-header-card {
-    padding-top:25px;
-    height:30px;
-    width: 98%;
+    border-bottom: dotted;
+    font-size: 14pt;
+    font-weight: bold;
+    padding-top:1%;
+    margin-left: 1.5%;
+    height:5%;
+    width: 97%;
 }
 
 #todo-list-items-div {
@@ -97,15 +109,49 @@
 }
 
 .item-col {
-    width:25%;
+    width:100%;
 }
 
 .list-controls-col {
-    /*display: flex;
+    display: flex;
     flex-direction: row; 
-    flex-wrap: nowrap;*/
+    flex-wrap: nowrap;
 }
 
 .list-item-control {
     width: 20%;
 }
+
+#add-item-button {
+    margin-left: 33%;
+    height: 65%;
+    width: 10%;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    border-radius: 10%;
+}
+
+#delete-list-button {
+    height: 65%;
+    width: 10%;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    border-radius: 10%;
+}
+
+#close-list-button {
+    height: 65%;
+    width: 10%;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    border-radius: 10%;
+}
+
+
+

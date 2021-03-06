@@ -27,7 +27,7 @@ class ListLink extends Component {
                 className='todo-list-button'
                 onClick={this.handleLoadList}
             >
-                {this.props.toDoList.name}<br />
+                <div className='alignText'>{this.props.toDoList.name}<br /></div>
             </div>
         )
     }
