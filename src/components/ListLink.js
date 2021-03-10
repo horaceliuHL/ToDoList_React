@@ -21,10 +21,14 @@ class ListLink extends Component {
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tListLink render");
+        let clasName = 'todo-list-button'
+        if (this.props.toDoList === this.props.currentList){
+            clasName = 'todo-list-button1'
+        }
 
         return (
             <div 
-                className='todo-list-button'
+                className={clasName}
                 onClick={this.handleLoadList}
             >
                 <div className='alignText'>{this.props.toDoList.name}<br /></div>

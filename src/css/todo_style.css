@@ -78,9 +78,25 @@
     font-weight: bold;
 }
 
+.list-item-card1 {
+    border-bottom: solid;
+    border-width: 1px;
+    font-weight: bold;
+}
+
+.list-item-card1:hover {
+    background-color: #4d5059;
+}
+
 .todo-list-button {
     cursor:pointer;
     background-color: var(--swatch-complement);
+    font-weight: bold;
+}
+
+.todo-list-button1 {
+    cursor:pointer;
+    background-color: #ffc819;
     font-weight: bold;
 }
 
@@ -90,16 +106,39 @@
 
 .todo-button {
     cursor:pointer;
-    background-color: var(--swatch-primary);
+    /* background-color: var(--swatch-primary); */
     font-weight: bold;
+}
+
+#task-col-header {
+    align-items: center;
+    align-self: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 #task-col-header:hover {
     background-color: #4d5059;
 }
+
+#date-col-header {
+    align-items: center;
+    align-self: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 #date-col-header:hover {
     background-color: #4d5059;
 }
+
+#status-col-header {
+    align-items: center;
+    align-self: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 #status-col-header:hover {
     background-color: #4d5059;
 }
@@ -118,14 +157,20 @@
 
 #add-list-button {
     color: var(--swatch-accent);
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .status-incomplete {
     color: var(--swatch-accent);
+    width: 100%;
+    margin-top: 20px;
 }
 
 .status-complete {
     color: var(--swatch-text-accent);
+    width: 100%;
+    margin-top: 20px;
 }
 
 #add-item-button, #delete-list-button, #close-list-button {
