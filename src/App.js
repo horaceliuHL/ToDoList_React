@@ -85,6 +85,36 @@ class App extends Component {
     }, this.afterToDoListsChangeComplete);
   }
 
+  closeCurrentList = () => {
+    this.setState({
+      currentList: {items: []},
+    })
+  }
+
+  deleteCurrentList = () => {
+    const newList = this.state.toDoLists.filter(list => 
+      list.id !== this.state.currentList.id
+    );
+    console.log("successful")
+    this.setState({
+      toDoLists: newList,
+      currentList: {items: []},
+    })
+  }
+
+  addNewItemInCurrentList = () => {
+    let temp = {
+      id: this.state.nextListItemId,
+      description: "No Description",
+      due_date: "No Date",
+      status: "incomplete",
+    }
+    this.state.currentList.items.push(temp)
+    this.setState({
+      nextListItemId: this.state.nextListItemId + 1
+    })
+  }
+
   makeNewToDoList = () => {
     let newToDoList = {
       id: this.highListId,
@@ -112,6 +142,19 @@ class App extends Component {
     localStorage.setItem("recent_work", toDoListsString);
   }
 
+  undo = () => {
+    if (this.tps.hasTransactionToUndo()){
+      this.tps.undoTransaction();
+    }
+  }
+
+  redo = () => {
+    if (this.tps.hasTransactionToRedo()){
+      this.tps.doTransaction();
+    }
+  }
+
+
   render() {
     let items = this.state.currentList.items;
     return (
@@ -122,8 +165,15 @@ class App extends Component {
           toDoLists={this.state.toDoLists}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
+          undoCallback={this.undo}
+          redoCallback={this.redo}
         />
-        <Workspace toDoListItems={items} />
+        <Workspace 
+          toDoListItems={items} 
+          addNewItem={this.addNewItemInCurrentList}
+          deleteListCallback={this.deleteCurrentList}
+          closeListCallback={this.closeCurrentList}
+          />
       </div>
     );
   }
