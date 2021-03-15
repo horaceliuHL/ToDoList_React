@@ -35,6 +35,7 @@ class ListLink extends Component {
     saveChangeListName = (e) => {
         if (e.target.value === '') this.props.toDoList.name = "Untitled";
         else this.props.toDoList.name = e.target.value;
+        this.props.listNameChanged(this.props.toDoList.name, this.props.toDoList.id);
         this.setState({ editListName: false })
     }
 

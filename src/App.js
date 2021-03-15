@@ -35,7 +35,7 @@ class App extends Component {
     console.log("recentLists: " + recentLists);
     if (!recentLists) {
       recentLists = JSON.stringify(testData.toDoLists);
-      localStorage.setItem("toDoLists", recentLists);
+      localStorage.setItem("recentLists", recentLists);
     }
     recentLists = JSON.parse(recentLists);
 
@@ -77,7 +77,7 @@ class App extends Component {
     this.setState({
       toDoLists: nextLists,
       currentList: toDoList
-    });
+    }, this.afterToDoListsChangeComplete);
   }
 
   addNewList = () => {
@@ -120,7 +120,7 @@ class App extends Component {
     this.state.currentList.items.push(temp)
     this.setState({
       nextListItemId: this.state.nextListItemId + 1
-    })
+    }, this.afterToDoListsChangeComplete)
     return temp;
   }
 
@@ -136,7 +136,7 @@ class App extends Component {
     this.setState({
       // todoLists: tempToDoLists,
       nextListItemId: this.state.nextListItemId - 1
-    })
+    }, this.afterToDoListsChangeComplete)
   }
 
   addNewItemInCurrentListTransaction = () => {
@@ -151,6 +151,7 @@ class App extends Component {
       }
     }
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
   }
 
   changeDescriptionTransaction = (newItem, oldItem, id) => {
@@ -165,6 +166,7 @@ class App extends Component {
       }
     }
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
   }
 
   changeDateTransaction = (newDate, oldDate, id) => {
@@ -180,6 +182,7 @@ class App extends Component {
       }
     }
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
   }
 
 
@@ -198,6 +201,7 @@ class App extends Component {
       }
     }
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
   }
 
   moveItemUpTransaction = (id) => {
@@ -215,6 +219,7 @@ class App extends Component {
       }
     }
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
   }
 
   moveItemDownTransaction = (id) => {
@@ -233,12 +238,14 @@ class App extends Component {
       }
     }
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
     return temp;
   }
 
   restoreItem = (itemArray) => {
     this.state.currentList.items.splice(itemArray[0], 0, itemArray[1])
     this.forceUpdate();
+    this.afterToDoListsChangeComplete();
   }
 
 
@@ -266,24 +273,37 @@ class App extends Component {
     return newToDoListItem;
   }
 
+  changeListName = (newName, id) => {
+    for (let i = 0; i < this.state.toDoLists.length; i++){
+      if (this.state.toDoLists[i].id === id){
+        this.state.toDoLists[i].name = newName;
+        break;
+      }
+    }
+    this.forceUpdate();
+    this.afterToDoListsChangeComplete();
+  }
+
   // THIS IS A CALLBACK FUNCTION FOR AFTER AN EDIT TO A LIST
   afterToDoListsChangeComplete = () => {
     console.log("App updated currentToDoList: " + this.state.currentList);
 
     // WILL THIS WORK? @todo
     let toDoListsString = JSON.stringify(this.state.toDoLists);
-    localStorage.setItem("recent_work", toDoListsString);
+    localStorage.setItem("recentLists", toDoListsString);
   }
 
   undo = () => {
     if (this.tps.hasTransactionToUndo()){
       this.tps.undoTransaction();
+      this.afterToDoListsChangeComplete();
     }
   }
 
   redo = () => {
     if (this.tps.hasTransactionToRedo()){
       this.tps.doTransaction();
+      this.afterToDoListsChangeComplete();
     }
   }
 
@@ -299,6 +319,7 @@ class App extends Component {
           addNewListCallback={this.addNewList}
           undoCallback={this.undo}
           redoCallback={this.redo}
+          changeListNameCallback={this.changeListName}
         />
         <Workspace 
           toDoListItems={items} 
