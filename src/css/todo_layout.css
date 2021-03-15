@@ -93,11 +93,26 @@
     margin-top: 12px;
 }
 
+.upArrow1 {
+    padding: 10px;
+    border-radius: 10%;
+    margin-top: 12px;
+    display: none;
+}
+
 .downArrow {
     margin-left: 7%;
     padding: 10px;
     border-radius: 10%;
     margin-top: 12px;
+}
+
+.downArrow1 {
+    margin-left: 7%;
+    padding: 10px;
+    border-radius: 10%;
+    margin-top: 12px;
+    visibility: hidden;
 }
 
 .deleteItem {
@@ -244,6 +259,11 @@
 
 #redo-button:hover {
     background-color: #c3c4c7;
+}
+
+.list-item-control-removed {
+    width: 20%;
+    text-align: center;
 }
 
 

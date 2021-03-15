@@ -40,10 +40,6 @@
     font-weight: bold;
 }
 
-#todo-list-header-card {
-    
-}
-
 #workspace {
     background-color: var(--swatch-primary);
     box-shadow: 2px 3px 2px var(--swatch-primary);
@@ -66,6 +62,9 @@
 
 .list-item-control {
     cursor: pointer;
+}
+.list-item-control1 {
+    visibility: hidden;
 }
 
 .list-item-control:hover {

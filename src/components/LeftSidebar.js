@@ -15,8 +15,14 @@ class LeftSidebar extends Component {
     }
 
     keydownHandler = (e) => {
-        if(e.key === 'z' && e.ctrlKey === true) this.props.undoCallback();
-        else if(e.key === 'y' && e.ctrlKey === true) this.props.redoCallback();
+        if(e.key === 'z' && e.ctrlKey === true){
+            this.props.undoCallback();
+            this.forceUpdate();
+        } 
+        else if(e.key === 'y' && e.ctrlKey === true){
+            this.props.redoCallback();
+            this.forceUpdate();
+        } 
     }
 
     handleAddNewList = () => {
@@ -36,23 +42,37 @@ class LeftSidebar extends Component {
     }
 
     render() {
+        if (this.props.currentList.id === undefined){
+            console.log("empty")
+        }
         return (
             <div id="left-sidebar">
                 <div id="left-sidebar-header" class="section-header">
                     <span class="left-sidebar-header-text">Todolists</span>
                     <span class="left-sidebar-controls" id="add-undo-redo-box">
-                        <AddBox 
+                        {this.props.currentList.id === undefined ?
+                            <AddBox 
                             id="add-list-button"
                             className="material-icons todo_button"
                             onClick={this.handleAddNewList} />
-                        <Undo 
-                            id="undo-button" 
-                            className="list-item-control material-icons todo-button"
-                            onClick={this.handleUndoClick} />
-                        <Redo
-                            id="redo-button" 
-                            className="list-item-control material-icons todo-button"
-                            onClick={this.handleRedoClick} />
+                        :   <>
+                            {this.props.hasTransactions.hasTransactionToUndo() ?
+                                <Undo 
+                                    id="undo-button" 
+                                    className="list-item-control material-icons todo-button"
+                                    onClick={this.handleUndoClick} />
+                            :   <div/>
+                            }
+                            {this.props.hasTransactions.hasTransactionToRedo() ?
+                                <Redo
+                                    id="redo-button" 
+                                    className="list-item-control material-icons todo-button"
+                                    onClick={this.handleRedoClick} />
+                            :   <div/>
+                            }
+                            </>
+                        
+                        }
                     </span>
                 </div>
                 <div id="todo-lists-list">

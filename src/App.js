@@ -15,10 +15,7 @@ import ChangeTask_Transaction from './components/transactions/ChangeTask_Transac
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
-{/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
-import ItemsListComponent from './components/ItemsListComponent'
-import ListsComponent from './components/ListsComponent'
-*/}
+
 class App extends Component {
   constructor(props) {
     // ALWAYS DO THIS FIRST
@@ -66,7 +63,8 @@ class App extends Component {
 
   // WILL LOAD THE SELECTED LIST
   loadToDoList = (toDoList) => {
-    console.log("loading " + toDoList);
+    // console.log("loading " + toDoList);
+    this.tps = new jsTPS();
 
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
     const nextLists = this.state.toDoLists.filter(testList =>
@@ -107,7 +105,7 @@ class App extends Component {
     this.setState({
       toDoLists: newList,
       currentList: {items: []},
-    })
+    }, this.afterToDoListsChangeComplete)
   }
 
   addNewItemInCurrentList = () => {
@@ -315,6 +313,7 @@ class App extends Component {
         <LeftSidebar 
           currentList={this.state.currentList}
           toDoLists={this.state.toDoLists}
+          hasTransactions={this.tps}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
           undoCallback={this.undo}
@@ -323,6 +322,7 @@ class App extends Component {
         />
         <Workspace 
           toDoListItems={items} 
+          currentList={this.state.currentList}
           addNewItem={this.addNewItemInCurrentListTransaction}
           deleteListCallback={this.deleteCurrentList}
           closeListCallback={this.closeCurrentList}

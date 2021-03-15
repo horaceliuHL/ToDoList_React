@@ -89,7 +89,7 @@ class ToDoItem extends Component {
         let statusType = "status-complete";
         if (listItem.status === "incomplete")
             statusType = "status-incomplete";
-
+        console.log(this.props.index)
         return (
             <div id={'todo-list-item-' + listItem.id} className='list-item-card1'>
                 {this.state.description === false ? 
@@ -115,8 +115,8 @@ class ToDoItem extends Component {
                 }
                 {this.state.status === false ?
                     <div 
-                        className='item-col status-col' 
-                        className={statusType}
+                        // className='item-col status-col' 
+                        className={statusType + ' item-col status-col'}
                         onClick={this.toggleChangeStatus}>{listItem.status}</div>
                 :   <select
                         className='item-col status-col1'
@@ -128,12 +128,20 @@ class ToDoItem extends Component {
                     </select>
                 }
                 <div className='item-col list-controls-col'>
-                    <KeyboardArrowUp 
+                    {this.props.index === 0 ?
+                        <KeyboardArrowUp 
+                        className='list-item-control1 todo-button upArrow1' />
+                    :   <KeyboardArrowUp 
                         className='list-item-control todo-button upArrow'
                         onClick={this.moveItemUp} />
-                    <KeyboardArrowDown 
+                    }
+                    {this.props.index === this.props.length - 1 ?
+                        <KeyboardArrowDown 
+                        className='list-item-control todo-button downArrow1'/>
+                    :   <KeyboardArrowDown 
                         className='list-item-control todo-button downArrow'
                         onClick={this.moveItemDown} />
+                    }
                     <Close 
                         className='list-item-control todo-button deleteItem'
                         onClick={this.deleteItem} />
