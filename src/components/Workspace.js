@@ -40,6 +40,30 @@ class Workspace extends Component {
         this.props.closeListCallback();
     }
 
+    handleChangeItemDescription = (newItem, oldItem, id) => {
+        this.props.itemChangeDescriptionCallback(newItem, oldItem, id);
+    }
+
+    handleChangeItemDate = (newDate, oldDate, id) => {
+        this.props.itemChangeDateCallback(newDate, oldDate, id);
+    }
+
+    handleChangeItemStatus = (newStatus, oldStatus, id) => {
+        this.props.itemChangeStatusCallback(newStatus, oldStatus, id);
+    }
+
+    handleMoveItemUp = (id) => {
+        this.props.moveItemUpCallback(id);
+    }
+
+    handleMoveItemDown = (id) => {
+        this.props.moveItemDownCallback(id);
+    }
+
+    handleDeleteItem = (id) => {
+        this.props.deleteItemCallback(id);
+    }
+
     render() {
         let showOrHidden = this.state.modal === false ? "modal-hidden" : "modal-display";
         return (
@@ -69,6 +93,12 @@ class Workspace extends Component {
                         <ToDoItem
                             key={toDoListItem.id}
                             toDoListItem={toDoListItem}     // PASS THE ITEM TO THE CHILDREN
+                            changeItemDescription={this.handleChangeItemDescription}
+                            changeItemDate={this.handleChangeItemDate}
+                            changeItemStatus={this.handleChangeItemStatus}
+                            moveItemUp={this.handleMoveItemUp}
+                            moveItemDown={this.handleMoveItemDown}
+                            deleteItem={this.handleDeleteItem}
                         />))
                     }
                 </div>

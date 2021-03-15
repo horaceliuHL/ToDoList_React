@@ -10,6 +10,15 @@ class LeftSidebar extends Component {
         super(props);
     }
 
+    componentDidMount = () => {
+        document.addEventListener('keydown',this.keydownHandler);
+    }
+
+    keydownHandler = (e) => {
+        if(e.key === 'z' && e.ctrlKey === true) this.props.undoCallback();
+        else if(e.key === 'y' && e.ctrlKey === true) this.props.redoCallback();
+    }
+
     handleAddNewList = () => {
         this.props.addNewListCallback();
     }

@@ -159,6 +159,13 @@
     color: var(--swatch-accent);
     padding-top: 3px;
     padding-bottom: 3px;
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+#add-list-button:hover {
+    
+    background-color: #c3c4c7;
 }
 
 .status-incomplete {

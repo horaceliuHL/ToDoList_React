@@ -69,11 +69,13 @@
 .todo-list-button {
     height: 60px;
     width: 100%;
+    color: white
 }
 
 .todo-list-button1 {
     height: 60px;
     width: 100%;
+    color: white
 }
 
 .alignText {
@@ -191,14 +193,35 @@
     margin-top: 20px;
 }
 
+.task-col1 {
+    width: 100%;
+    background-color:#40454e;
+    color: white;
+    font-family: 'Consolas';
+}
+
 .due-date-col {
     width: 100%;
     margin-top: 20px;
 }
 
+.due-date-col1 {
+    width: 100%;
+    background-color:#40454e;
+    color: white;
+    font-family: 'Consolas';
+}
+
 .status-col {
     width: 100%;
     margin-top: 20px;
+}
+
+.status-col1 {
+    width: 100%;
+    background-color:#40454e;
+    color: white;
+    font-family: 'Consolas';
 }
 
 #undo-button {

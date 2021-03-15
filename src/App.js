@@ -3,6 +3,14 @@ import React, { Component } from 'react';
 import testData from './test/testData.json'
 import jsTPS from './common/jsTPS'
 
+import AddNewItem_Transaction from './components/transactions/AddNewItem_Transaction';
+import ChangeDate_Transaction from './components/transactions/ChangeDate_Transaction';
+import ChangeStatus_Transaction from './components/transactions/ChangeStatus_Transaction';
+import MoveItemUp_Transaction from './components/transactions/MoveItemUp_Transaction';
+import MoveItemDown_Transaction from './components/transactions/MoveItemDown_Transaction';
+import DeleteItem_Transaction from './components/transactions/DeleteItem_Transaction';
+import ChangeTask_Transaction from './components/transactions/ChangeTask_Transaction';
+
 // THESE ARE OUR REACT COMPONENTS
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
@@ -113,11 +121,136 @@ class App extends Component {
     this.setState({
       nextListItemId: this.state.nextListItemId + 1
     })
+    return temp;
   }
+
+  removeItemInCurrentList = (listItemId) => {
+    let item;
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === listItemId) item = i;
+    }
+    this.state.currentList.items.splice(item, 1);
+    console.log(this.state.currentList)
+    // let tempToDoLists = this.state.toDoLists.shift();
+    // tempToDoLists = this.state.toDoLists.unshift(this.state.currentList);
+    this.setState({
+      // todoLists: tempToDoLists,
+      nextListItemId: this.state.nextListItemId - 1
+    })
+  }
+
+  addNewItemInCurrentListTransaction = () => {
+    let transaction = new AddNewItem_Transaction(this);
+    this.tps.addTransaction(transaction);
+  }
+
+  changeTask = (desc, id) => {
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === id){
+        this.state.currentList.items[i].description = desc;
+      }
+    }
+    this.forceUpdate();
+  }
+
+  changeDescriptionTransaction = (newItem, oldItem, id) => {
+    let transaction = new ChangeTask_Transaction(this, newItem, oldItem, id);
+    this.tps.addTransaction(transaction);
+  }
+
+  changeDate = (date, id) => {
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === id){
+        this.state.currentList.items[i].due_date = date;
+      }
+    }
+    this.forceUpdate();
+  }
+
+  changeDateTransaction = (newDate, oldDate, id) => {
+    let transaction = new ChangeDate_Transaction(this, newDate, oldDate, id);
+    this.tps.addTransaction(transaction);
+  }
+
+
+  changeStatus = (status, id) => {
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === id){
+        this.state.currentList.items[i].status = status;
+      }
+    }
+    this.forceUpdate();
+  }
+
+
+  changeStatusTransaction = (newStatus, oldStatus, id) => {
+    let transaction = new ChangeStatus_Transaction(this, newStatus, oldStatus, id);
+    this.tps.addTransaction(transaction);
+  }
+
+  moveItemUp = (id) => {
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === id && i !== 0){
+        let temp = this.state.currentList.items[i]
+        this.state.currentList.items.splice(i, 1)
+        this.state.currentList.items.splice(i - 1, 0, temp)
+        break;
+      }
+    }
+    this.forceUpdate();
+  }
+
+  moveItemUpTransaction = (id) => {
+    let transaction = new MoveItemUp_Transaction(this, id);
+    this.tps.addTransaction(transaction);
+  }
+
+  moveItemDown = (idItem) => {
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === idItem && i !== this.state.currentList.items.length - 1){
+        let temp = this.state.currentList.items[i]
+        this.state.currentList.items.splice(i, 1)
+        this.state.currentList.items.splice(i + 1, 0, temp)
+        break;
+      }
+    }
+    this.forceUpdate();
+  }
+
+  moveItemDownTransaction = (id) => {
+    let transaction = new MoveItemDown_Transaction(this, id);
+    this.tps.addTransaction(transaction);
+  }
+
+  deleteItem = (idItem) => {
+    let temp = [];
+    for (let i = 0; i < this.state.currentList.items.length; i++){
+      if (this.state.currentList.items[i].id === idItem){
+        temp.push(i)
+        temp.push(this.state.currentList.items[i])
+        this.state.currentList.items.splice(i, 1)
+        break;
+      }
+    }
+    this.forceUpdate();
+    return temp;
+  }
+
+  restoreItem = (itemArray) => {
+    this.state.currentList.items.splice(itemArray[0], 0, itemArray[1])
+    this.forceUpdate();
+  }
+
+
+  deleteItemTransaction = (id) => {
+    let transaction = new DeleteItem_Transaction(this, id);
+    this.tps.addTransaction(transaction);
+  }
+
 
   makeNewToDoList = () => {
     let newToDoList = {
-      id: this.highListId,
+      id: this.state.nextListId,
       name: 'Untitled',
       items: []
     };
@@ -154,7 +287,6 @@ class App extends Component {
     }
   }
 
-
   render() {
     let items = this.state.currentList.items;
     return (
@@ -170,9 +302,15 @@ class App extends Component {
         />
         <Workspace 
           toDoListItems={items} 
-          addNewItem={this.addNewItemInCurrentList}
+          addNewItem={this.addNewItemInCurrentListTransaction}
           deleteListCallback={this.deleteCurrentList}
           closeListCallback={this.closeCurrentList}
+          itemChangeDescriptionCallback={this.changeDescriptionTransaction}
+          itemChangeDateCallback={this.changeDateTransaction}
+          itemChangeStatusCallback={this.changeStatusTransaction}
+          moveItemUpCallback={this.moveItemUpTransaction}
+          moveItemDownCallback={this.moveItemDownTransaction}
+          deleteItemCallback={this.deleteItemTransaction}
           />
       </div>
     );
